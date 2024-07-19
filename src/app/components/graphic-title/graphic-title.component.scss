@@ -1,0 +1,15 @@
+p {
+    display: inline-block;
+    color: white;
+    background-color: #02838f;
+    padding: 5px;
+    border-radius: 5px;
+    font-family: "Juana";
+} 
+
+@font-face {
+    font-family: 'Juana';
+    src: url('../../../assets/font/Fontspring-DEMO-juana-thin.otf');
+    font-weight: normal;
+    font-style: normal;
+  }

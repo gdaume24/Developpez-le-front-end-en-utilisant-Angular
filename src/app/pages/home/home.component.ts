@@ -13,6 +13,6 @@ export class HomeComponent implements OnInit {
   constructor(private olympicService: OlympicService) {}
 
   ngOnInit(): void {
-    this.olympics$ = this.olympicService.getOlympics();
+    this.olympics$ = this.olympicService.getData();
   }
 }
