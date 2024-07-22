@@ -10,7 +10,5 @@ import { OlympicService } from './core/services/olympic.service';
 export class AppComponent implements OnInit {
   constructor(private olympicService: OlympicService) {}
 
-  ngOnInit(): void {
-    this.olympicService.loadData().pipe(take(1)).subscribe();
-  }
+  ngOnInit(): void {}
 }
