@@ -1,34 +1,52 @@
-import { Component, Inject } from '@angular/core';
-import { OlympicService } from '../../core/services/olympics.service';
+import { Component, OnInit } from '@angular/core';
 import * as am5 from '@amcharts/amcharts5';
 import * as am5percent from '@amcharts/amcharts5/percent';
-import { any } from '@amcharts/amcharts5/.internal/core/util/Array';
-import { Observable, of } from 'rxjs';
-import { countryData } from '../../core/models/olympics';
+import { map, Observable, of } from 'rxjs';
+import { countryData, participation } from 'src/app/core/models/Olympic';
+import { OlympicService } from 'src/app/core/services/olympic.service';
 
 @Component({
   selector: 'app-pie-chart',
-  standalone: true,
-  imports: [],
   templateUrl: './pie-chart.component.html',
   styleUrl: './pie-chart.component.scss',
 })
-export class PieChartComponent {
-  private root!: am5.Root;
-  public olympics$: Observable<countryData[]> = of([]);
+export class PieChartComponent implements OnInit {
   countriesNames: string[] = [];
   totalMedalsList: number[] = [];
 
-  constructor(private olympicService: OlympicService) {
-    [this.countriesNames, this.totalMedalsList] =
-      this.countriesAndTotalMedalsList();
+  constructor(private olympicService: OlympicService) {}
+
+  ngOnInit() {
+    this.pieData$.subscribe(([countriesNames, totalMedalsList]) => {
+      this.countriesNames = countriesNames;
+      this.totalMedalsList = totalMedalsList;
+    });
+
+    console.log('Countries Names:', this.countriesNames);
+    console.log('Total Medals List:', this.totalMedalsList);
   }
 
-  ngOnInit(): void {
-    this.olympics$ = this.olympicService.getData();
-    console.log(this.olympics$);
-    this.Cheese(this.countriesNames, this.totalMedalsList);
-  }
+  pieData$: Observable<[string[], number[]]> = this.olympicService.datas$.pipe(
+    map((datas: countryData[]) => {
+      let countriesNames: string[] = [];
+      let totalMedalsList: number[] = [];
+
+      datas.forEach((data) => {
+        countriesNames.push(data.country);
+
+        let countryTotalMedals = data.participations.reduce(
+          (acc: number, participation: participation) =>
+            acc + participation.medalsCount,
+          0
+        );
+        totalMedalsList.push(countryTotalMedals);
+      });
+
+      return [countriesNames, totalMedalsList];
+    })
+  );
+
+  // this.Cheese(this.countriesNames, this.totalMedalsList);
 
   countriesAndTotalMedalsList(): [string[], number[]] {
     let totalMedalsList: number[] = [];
