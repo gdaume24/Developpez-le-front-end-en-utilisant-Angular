@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { OlympicService } from './core/services/olympic.service';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -9,5 +10,7 @@ import { OlympicService } from './core/services/olympic.service';
 export class AppComponent implements OnInit {
   constructor(private olympicService: OlympicService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.olympicService.loadInitialData().pipe(take(1)).subscribe();
+  }
 }

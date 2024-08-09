@@ -9,63 +9,50 @@ import { OlympicService } from 'src/app/core/services/olympic.service';
   selector: 'app-pie-chart',
   templateUrl: './pie-chart.component.html',
   styleUrl: './pie-chart.component.scss',
+  standalone: true,
 })
 export class PieChartComponent implements OnInit {
+  olympics$: Observable<countryData[]> = [];
   countriesNames: string[] = [];
   totalMedalsList: number[] = [];
 
   constructor(private olympicService: OlympicService) {}
 
   ngOnInit() {
-    this.pieData$.subscribe(([countriesNames, totalMedalsList]) => {
-      this.countriesNames = countriesNames;
-      this.totalMedalsList = totalMedalsList;
-    });
+    olympics$ = this.olympicService.getOlympics();
 
+    pieData$: Observable<[string[], number[]]> = this.datas$.pipe(
+      map((datas: countryData[]) => {
+        let countriesNames: string[] = [];
+        let totalMedalsList: number[] = [];
+
+        datas.forEach((data) => {
+          countriesNames.push(data.country);
+
+          let countryTotalMedals = data.participations.reduce(
+            (acc: number, participation: participation) =>
+              acc + participation.medalsCount,
+            0
+          );
+          totalMedalsList.push(countryTotalMedals);
+        });
+
+        return [countriesNames, totalMedalsList];
+      })
+    );
+
+    this.olympicService.pieData$.subscribe(
+      ([countriesNames, totalMedalsList]) => {
+        this.countriesNames = countriesNames;
+        this.totalMedalsList = totalMedalsList;
+      }
+    );
+    console.log('Data :', this.olympicService.datas$.subscribe());
     console.log('Countries Names:', this.countriesNames);
     console.log('Total Medals List:', this.totalMedalsList);
   }
 
-  pieData$: Observable<[string[], number[]]> = this.olympicService.datas$.pipe(
-    map((datas: countryData[]) => {
-      let countriesNames: string[] = [];
-      let totalMedalsList: number[] = [];
-
-      datas.forEach((data) => {
-        countriesNames.push(data.country);
-
-        let countryTotalMedals = data.participations.reduce(
-          (acc: number, participation: participation) =>
-            acc + participation.medalsCount,
-          0
-        );
-        totalMedalsList.push(countryTotalMedals);
-      });
-
-      return [countriesNames, totalMedalsList];
-    })
-  );
-
   // this.Cheese(this.countriesNames, this.totalMedalsList);
-
-  countriesAndTotalMedalsList(): [string[], number[]] {
-    let totalMedalsList: number[] = [];
-    let countriesNames: string[] = [];
-    next: (datas: countryData[]) => {
-      if (datas != null) {
-        for (let i = 0; i < datas.length; i++) {
-          countriesNames.push(datas[i].country);
-
-          let countryTotalMedals = 0;
-          for (let j = 0; j < datas[i].participations.length; j++) {
-            countryTotalMedals += datas[i].participations[j].medalsCount;
-          }
-          totalMedalsList.push(countryTotalMedals);
-        }
-      }
-    };
-    return [countriesNames, totalMedalsList];
-  }
 
   Cheese(countriesNames: any, totalMedalsList: any) {
     const root = am5.Root.new('pie');

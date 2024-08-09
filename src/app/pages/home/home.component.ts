@@ -15,5 +15,7 @@ export class HomeComponent implements OnInit {
 
   constructor(private olympicService: OlympicService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(
+    this.olympicService.getOlympics().pipe()
+  )
 }
