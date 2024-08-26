@@ -8,7 +8,7 @@ import { countryData, participation } from '../models/Olympic';
 })
 export class OlympicService {
   private olympicUrl = './assets/mock/olympic.json';
-  private olympics$ = new BehaviorSubject<any>(undefined);
+  private olympics$ = new BehaviorSubject<countryData[]>([]);
 
   constructor(private http: HttpClient) {}
 
@@ -19,13 +19,13 @@ export class OlympicService {
         // TODO: improve error handling
         console.error(error);
         // can be useful to end loading state and let the user know something went wrong
-        this.olympics$.next(null);
+        this.olympics$.next([]);
         return caught;
       })
     );
   }
 
-  getOlympics() {
+  getOlympics(): Observable<countryData[]> {
     return this.olympics$.asObservable();
   }
 }

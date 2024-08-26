@@ -1,78 +1,51 @@
 import { Component, OnInit } from '@angular/core';
-import * as am5 from '@amcharts/amcharts5';
-import * as am5percent from '@amcharts/amcharts5/percent';
-import { map, Observable, of } from 'rxjs';
+import { map, Observable, of, skip, Subscription, take } from 'rxjs';
 import { countryData, participation } from 'src/app/core/models/Olympic';
 import { OlympicService } from 'src/app/core/services/olympic.service';
+import { formattedPieDatas } from 'src/app/core/models/Charts';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @Component({
   selector: 'app-pie-chart',
   templateUrl: './pie-chart.component.html',
   styleUrl: './pie-chart.component.scss',
   standalone: true,
+  imports: [NgxChartsModule],
 })
 export class PieChartComponent implements OnInit {
-  olympics$: Observable<countryData[]> = [];
-  countriesNames: string[] = [];
-  totalMedalsList: number[] = [];
+  olympics$: Observable<countryData[]> = of([]);
+  subscription!: Subscription;
+  formattedData: formattedPieDatas[] = [];
+  showLegend: boolean = true;
 
   constructor(private olympicService: OlympicService) {}
 
   ngOnInit() {
-    olympics$ = this.olympicService.getOlympics();
-
-    pieData$: Observable<[string[], number[]]> = this.datas$.pipe(
-      map((datas: countryData[]) => {
-        let countriesNames: string[] = [];
-        let totalMedalsList: number[] = [];
-
-        datas.forEach((data) => {
-          countriesNames.push(data.country);
-
-          let countryTotalMedals = data.participations.reduce(
-            (acc: number, participation: participation) =>
-              acc + participation.medalsCount,
+    this.olympics$ = this.olympicService.getOlympics().pipe(take(2), skip(1));
+    this.subscription = this.olympics$.subscribe({
+      next: (countriesData) => {
+        const formattedData = countriesData.map((country) => {
+          // Calcul du nombre total de médailles
+          const totalMedals = country.participations.reduce(
+            (acc, participation) => acc + participation.medalsCount,
             0
           );
-          totalMedalsList.push(countryTotalMedals);
+          // Formatage des données selon le schéma demandé
+          return {
+            name: country.country,
+            value: totalMedals,
+            extra: {
+              id: country.id.toString(),
+            },
+          };
         });
-
-        return [countriesNames, totalMedalsList];
-      })
-    );
-
-    this.olympicService.pieData$.subscribe(
-      ([countriesNames, totalMedalsList]) => {
-        this.countriesNames = countriesNames;
-        this.totalMedalsList = totalMedalsList;
-      }
-    );
-    console.log('Data :', this.olympicService.datas$.subscribe());
-    console.log('Countries Names:', this.countriesNames);
-    console.log('Total Medals List:', this.totalMedalsList);
+        this.formattedData = formattedData;
+        console.log('registered ->', this.formattedData);
+      },
+    });
   }
 
-  // this.Cheese(this.countriesNames, this.totalMedalsList);
-
-  Cheese(countriesNames: any, totalMedalsList: any) {
-    const root = am5.Root.new('pie');
-    const chart = root.container.children.push(
-      am5percent.PieChart.new(root, {})
-    );
-
-    let series = chart.series.push(
-      am5percent.PieSeries.new(root, {
-        name: 'Series',
-        categoryField: 'country',
-        valueField: 'medals',
-      })
-    );
-
-    let data = countriesNames.map((countryName: any, index: any) => ({
-      country: countryName,
-      medals: totalMedalsList[index],
-    }));
-
-    series.data.setAll(data);
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }
