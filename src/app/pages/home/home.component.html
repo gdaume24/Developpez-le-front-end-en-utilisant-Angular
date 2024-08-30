@@ -1,28 +1,30 @@
-<h2>Olympic games app</h2>
-<hr />
-<p>
-  Cette application présente la rétrospective des médailles gagnées par chaque
-  pays lors des précédents jeux olympiques.
-</p>
-<p>
-  Lorsqu'on clique sur le graphique, on voit le détail correspondant au pays
-  sélectionné.
-</p>
-<p>Le détail correspond au :</p>
-<ul>
-  <li>Nombre total de participations du pays</li>
-  <li>Nombre de médailles gagnées</li>
-  <li>Nombre d'athlètes ayant participés</li>
-</ul>
-<div class="graphic-title-div">
-  <app-graphic-title title="Medals per Country" />
+<div class="container">
+  <h2 class="centered">Olympic games app</h2>
+  <hr />
+  <p>
+    Cette application fait une rétrospective des médailles gagnées par chaques
+    pays lors des précédents jeux olympiques.
+  </p>
+  <p>
+    Un premier graphique présente le nombre total de médailles gagnées par
+    chaque pays dans tous les JOs. Lorsqu'on clique sur un pays dans ce
+    graphique, on voit le détail du pays sélectionné. Le détail correspond au :
+  </p>
+  <ul>
+    <li>Nombre total de participations du pays</li>
+    <li>Nombre de médailles gagnées</li>
+    <li>Nombre d'athlètes ayant participés</li>
+  </ul>
+  <div class="centered">
+    <app-graphic-title title="Medals per Country" />
+  </div>
+  <div class="informatives-squares">
+    <app-informative-square
+      class="first-informative"
+      [header]="'Number of JOs'"
+      [number]="3"
+    />
+    <app-informative-square [header]="'Number of countries'" [number]="3" />
+  </div>
+  <app-pie-chart />
 </div>
-<div class="flex-container">
-  <app-informative-square
-    class="first-informative"
-    [header]="'Number of JOs'"
-    [number]="3"
-  />
-  <app-informative-square [header]="'Number of countries'" [number]="3" />
-</div>
-<app-pie-chart />
