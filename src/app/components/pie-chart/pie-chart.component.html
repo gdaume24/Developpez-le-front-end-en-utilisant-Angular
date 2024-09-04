@@ -1,4 +1,5 @@
 <ngx-charts-pie-chart
   [results]="formattedData"
   [labels]="showLegend"
+  (select)="onPieSliceSelect($event)"
 ></ngx-charts-pie-chart>
