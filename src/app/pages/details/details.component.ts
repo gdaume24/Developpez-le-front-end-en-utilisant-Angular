@@ -8,26 +8,23 @@ import { InformativeSquareComponent } from 'src/app/components/informative-squar
   imports: [GraphicTitleComponent, InformativeSquareComponent],
   selector: 'app-details',
   templateUrl: './details.component.html',
-  styleUrl: './details.component.scss'
+  styleUrl: './details.component.scss',
 })
 export class DetailsComponent implements OnInit {
-  private router = inject(Router)
+  private router = inject(Router);
   private route = inject(ActivatedRoute);
-  id = 0
+  id = 0;
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.id = +params["id"];
-      console.log("id =", this.id)
-   });
+    this.route.params.subscribe((params) => {
+      this.id = +params['id'];
+    });
   }
 
-
-
+  loadData() {}
 
   nav() {
-    this.router.navigate([''])
-    .then(() => {
+    this.router.navigate(['']).then(() => {
       window.location.reload();
     });
   }

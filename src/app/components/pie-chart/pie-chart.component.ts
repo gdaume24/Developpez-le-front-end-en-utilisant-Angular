@@ -1,5 +1,13 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { catchError, map, Observable, of, skip, Subscription, take } from 'rxjs';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import {
+  catchError,
+  map,
+  Observable,
+  of,
+  skip,
+  Subscription,
+  take,
+} from 'rxjs';
 import { countryData, participation } from 'src/app/core/models/Olympic';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { formattedPieDatas } from 'src/app/core/models/Charts';
@@ -14,7 +22,7 @@ import { Router } from '@angular/router';
   imports: [NgxChartsModule],
 })
 export class PieChartComponent implements OnInit {
-  olympics$: Observable<countryData[]> = of([]);
+  olympics$: Observable<countryData[]> = this.olympicService.getDatas();
   subscription!: Subscription;
   formattedData: formattedPieDatas[] = [];
   showLegend: boolean = true;
@@ -23,13 +31,10 @@ export class PieChartComponent implements OnInit {
   constructor(private olympicService: OlympicService) {}
 
   ngOnInit() {
-    this.olympics$ = this.olympicService.getOlympics().pipe(
-    take(2), 
-    skip(1), 
-    catchError(error => {
-      console.error('Erreur dans getOlympics:', error);
-      return of([]); // Retourner des données vides en cas d'erreur
-    }));
+    this.loadData();
+  }
+
+  loadData() {
     this.subscription = this.olympics$.subscribe({
       next: (countriesData) => {
         const formattedData = countriesData.map((country) => {
@@ -49,11 +54,14 @@ export class PieChartComponent implements OnInit {
         });
         this.formattedData = formattedData;
       },
+      error: (error) => {
+        console.error('Erreur lors du chargement des données:', error);
+      },
     });
   }
 
   onPieSliceSelect(event: any) {
-    const selectedId = event.extra.id
+    const selectedId = event.extra.id;
     this.router.navigate(['/details', selectedId]);
   }
 
