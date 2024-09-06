@@ -22,7 +22,7 @@ import { Router } from '@angular/router';
   imports: [NgxChartsModule],
 })
 export class PieChartComponent implements OnInit {
-  olympics$: Observable<countryData[]> = this.olympicService.getDatas();
+  olympics$: Observable<countryData[]> = this.olympicService.olympicObservable
   subscription!: Subscription;
   formattedData: formattedPieDatas[] = [];
   showLegend: boolean = true;

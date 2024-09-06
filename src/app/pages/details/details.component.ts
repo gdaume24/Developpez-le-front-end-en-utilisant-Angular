@@ -1,6 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { GraphicTitleComponent } from 'src/app/components/graphic-title/graphic-title.component';
 import { InformativeSquareComponent } from 'src/app/components/informative-square/informative-square.component';
 
@@ -14,6 +15,7 @@ import { InformativeSquareComponent } from 'src/app/components/informative-squar
 export class DetailsComponent implements OnInit {
   private router = inject(Router);
   private route = inject(ActivatedRoute);
+  subscription!: Subscription;
   id = 0;
 
   constructor(private location: Location) {}
@@ -24,10 +26,11 @@ export class DetailsComponent implements OnInit {
     });
   }
 
-  loadData() {}
-
   nav() {
     this.location.back();
     };
-  }
+}
+
+
+
 
