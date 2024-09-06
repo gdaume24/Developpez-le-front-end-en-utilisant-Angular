@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { GraphicTitleComponent } from 'src/app/components/graphic-title/graphic-title.component';
 import { InformativeSquareComponent } from 'src/app/components/informative-square/informative-square.component';
 import { PieChartComponent } from 'src/app/components/pie-chart/pie-chart.component';
@@ -14,4 +14,8 @@ import { PieChartComponent } from 'src/app/components/pie-chart/pie-chart.compon
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent {}
+
+export class HomeComponent implements OnInit {
+  ngOnInit(): void {
+    // window.location.reload()
+  }}

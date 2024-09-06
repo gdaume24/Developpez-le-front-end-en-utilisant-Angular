@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GraphicTitleComponent } from 'src/app/components/graphic-title/graphic-title.component';
@@ -15,6 +16,8 @@ export class DetailsComponent implements OnInit {
   private route = inject(ActivatedRoute);
   id = 0;
 
+  constructor(private location: Location) {}
+
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.id = +params['id'];
@@ -24,8 +27,7 @@ export class DetailsComponent implements OnInit {
   loadData() {}
 
   nav() {
-    this.router.navigate(['']).then(() => {
-      window.location.reload();
-    });
+    this.location.back();
+    };
   }
-}
+
