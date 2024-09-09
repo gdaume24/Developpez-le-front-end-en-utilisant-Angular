@@ -22,19 +22,19 @@ import { Router } from '@angular/router';
   imports: [NgxChartsModule],
 })
 export class PieChartComponent implements OnInit {
-  olympics$: Observable<countryData[]> = this.olympicService.olympicObservable
+  olympics$: Observable<countryData[]> = this.olympicService.getDatas();
   subscription!: Subscription;
-  formattedData: formattedPieDatas[] = [];
+  pieData: formattedPieDatas[] = [];
   showLegend: boolean = true;
   private router = inject(Router);
 
   constructor(private olympicService: OlympicService) {}
 
   ngOnInit() {
-    this.loadData();
+    this.loadPieData();
   }
 
-  loadData() {
+  loadPieData() {
     this.subscription = this.olympics$.subscribe({
       next: (countriesData) => {
         const formattedData = countriesData.map((country) => {
@@ -52,7 +52,7 @@ export class PieChartComponent implements OnInit {
             },
           };
         });
-        this.formattedData = formattedData;
+        this.pieData = formattedData;
       },
       error: (error) => {
         console.error('Erreur lors du chargement des données:', error);

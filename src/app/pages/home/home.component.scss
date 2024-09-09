@@ -1,5 +1,3 @@
-
-
 p {
   resize: both;
   margin: auto;
@@ -8,8 +6,6 @@ p {
 .contexte {
   max-width: 100%;
 }
-
-
 
 .centered {
   max-width: fit-content;
@@ -22,10 +18,8 @@ app-graphic-title {
 }
 
 .informatives-squares {
-  display: flex; 
-  max-width: fit-content;
-  margin-left: auto;
-  margin-right: auto;
+  display: flex;
+  @extend .centered;
 }
 
 .first-informative {
