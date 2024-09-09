@@ -16,7 +16,7 @@ import { countryData } from '../models/Olympic';
 })
 export class OlympicService {
   private olympicUrl = './assets/mock/olympic.json';
-  private olympics$ = new BehaviorSubject<countryData[]>([]);
+  public olympics$ = new BehaviorSubject<countryData[]>([]);
   public olympicObservable = this.olympics$.asObservable();
 
   constructor(private http: HttpClient) {}

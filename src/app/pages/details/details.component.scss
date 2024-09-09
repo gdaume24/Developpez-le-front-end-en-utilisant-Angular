@@ -4,7 +4,24 @@
   margin-right: auto;
 }
 
-.informatives-squares {
-  display: flex;
+.title {
   @extend .centered;
+  margin-top: 50px ;
+}
+
+app-graphic-title {
+  font-size: 25px;
+}
+
+.informatives-squares {
+  margin-top: 18px;
+  display: flex;
+  justify-content: space-between;
+  @extend .centered;
+}
+
+.flex-items {
+  margin-left: 10px;
+  margin-right: 10px;
+  font-size: 16px;
 }

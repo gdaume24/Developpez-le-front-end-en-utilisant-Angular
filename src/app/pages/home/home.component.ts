@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { GraphicTitleComponent } from 'src/app/components/graphic-title/graphic-title.component';
 import { InformativeSquareComponent } from 'src/app/components/informative-square/informative-square.component';
 import { PieChartComponent } from 'src/app/components/pie-chart/pie-chart.component';
@@ -19,27 +19,41 @@ import { OlympicService } from 'src/app/core/services/olympic.service';
 })
 export class HomeComponent implements OnInit {
   olympics$: Observable<countryData[]> = this.olympicService.getDatas();
-  numberOfJO: number = 0;
+  subscription!: Subscription;
+  countriesIdList: number[] = [];
   numberOfCountries: number = 0;
+  participationIdList: number[] = [];
+  numberOfJO: number = 0;
 
   constructor(private olympicService: OlympicService) {}
 
   ngOnInit() {
-    this.olympics$.subscribe((data) => {
+    this.subscription = this.olympics$.subscribe((data) => {
       this.calculateStats(data);
     });
-    console.log('numberofJO =', this.numberOfJO, this.numberOfCountries);
+
   }
 
   private calculateStats(data: countryData[]) {
-    this.olympics$.subscribe((data) => {
-      // Calculer le nombre de JO
-      console.log('data =', data);
-      console.log('type =', typeof data);
-      this.numberOfJO = Math.max(...data.map((o) => o.id));
 
-      // Calculer le nombre de pays
-      // this.numberOfCountries = Math.max(...data.map((country) => country.id));
-    });
+    // Pour chaque pays, pousse l'id dans une liste
+    data.forEach((country) => {
+      this.countriesIdList.push(country.id);
+      // Pour chaque participations de chaque pays, pousse l'id dans une deuxième liste
+      country.participations.forEach((participation) => {
+        this.participationIdList.push(participation.id);
+      });
+    })
+    // Max liste 1
+    this.numberOfCountries = Math.max(...this.countriesIdList);
+    // Max liste 2
+    this.numberOfJO = Math.max(...this.participationIdList);
+    console.log('numberofCountries =', this.numberOfCountries);
+    console.log('numberofJOs =', this.numberOfJO);
+    };
+
+    ngOnDestroy(): void {
+      this.subscription.unsubscribe()
+    }
   }
-}
+

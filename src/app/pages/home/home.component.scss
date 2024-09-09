@@ -3,25 +3,32 @@ p {
   margin: auto;
 }
 
-.contexte {
-  max-width: 100%;
-}
-
 .centered {
   max-width: fit-content;
   margin-left: auto;
   margin-right: auto;
 }
 
-app-graphic-title {
-  width: max-content;
+.title {
+  @extend .centered;
+  margin-top: 45px
 }
 
+
+app-graphic-title {
+  font-size: 25px;
+}
+
+
 .informatives-squares {
+  margin-top: 18px;
   display: flex;
   @extend .centered;
 }
 
-.first-informative {
-  margin-right: 15px;
+.flex-items {
+  font-size: 16px;  
+  margin-left: 10px;
+  margin-right: 10px;
 }
+

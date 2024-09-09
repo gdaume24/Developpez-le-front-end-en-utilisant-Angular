@@ -1,17 +1,14 @@
 <div>
-  <div class="centered">
-    <app-graphic-title title="Medals per Country" />
+  <div class="title">
+    <app-graphic-title [title]="countryName" />
   </div>
 
   <div class="informatives-squares">
-    <app-informative-square
-      class="first-informative"
-      [header]="'Number of JOs'"
-      [number]="3"
-    />
-    <app-informative-square [header]="'Number of countries'" [number]="3" />
+    <app-informative-square class="flex-items" header="Number of entries" [number]="numberOfEntries" />
+    <app-informative-square class="flex-items" header="Total number Medals" [number]="totalMedalsCount" />
+    <app-informative-square class="flex-items" header="Total number of athletes" [number]="totalAthleteCount" />
   </div>
+  <app-line-chart></app-line-chart>
 
   <button (click)="nav()">Return</button>
-  <!-- <button routerLink="" title="Back to dashboard">Back</button> -->
 </div>

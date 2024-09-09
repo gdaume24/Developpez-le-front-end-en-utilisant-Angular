@@ -16,16 +16,12 @@
     <li>Nombre d'athlètes ayant participés</li>
   </ul>
   <div>
-    <div class="centered">
+    <div class="title">
       <app-graphic-title title="Medals per Country" />
     </div>
     <div class="informatives-squares">
-      <app-informative-square
-        class="first-informative"
-        [header]="'Number of JOs'"
-        [number]="3"
-      />
-      <app-informative-square [header]="'Number of countries'" [number]="3" />
+      <app-informative-square class="flex-items" header="Number of JOs" [number]="numberOfJO" />
+      <app-informative-square class="flex-items" header="Number of countries" [number]="numberOfCountries" />
     </div>
     <app-pie-chart />
   </div>
