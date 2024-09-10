@@ -5,3 +5,11 @@ export interface formattedPieDatas {
     id: string;
   };
 }
+
+export interface formattedLineDatas {
+  name: string;
+  series: { 
+    name: number; 
+    value: number 
+  }[];
+}

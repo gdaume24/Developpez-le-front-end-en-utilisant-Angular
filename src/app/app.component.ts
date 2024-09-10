@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { OlympicService } from './core/services/olympic.service';
-import { take } from 'rxjs';
 import { RouterOutlet } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Importez BrowserAnimationsModule
+
 
 @Component({
   selector: 'app-root',

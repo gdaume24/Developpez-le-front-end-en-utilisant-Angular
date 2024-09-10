@@ -22,7 +22,7 @@ export class OlympicService {
   constructor(private http: HttpClient) {}
 
   loadDataInCache() {
-    return this.http.get<any>(this.olympicUrl).pipe(
+    return this.http.get<countryData[]>(this.olympicUrl).pipe(
       tap((value) => this.olympics$.next(value)),
       catchError((error, caught) => {
         // TODO: improve error handling

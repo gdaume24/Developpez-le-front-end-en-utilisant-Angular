@@ -1,4 +1,4 @@
-<div>
+<div class="flexbox">
   <div class="title">
     <app-graphic-title [title]="countryName" />
   </div>
@@ -8,7 +8,11 @@
     <app-informative-square class="flex-items" header="Total number Medals" [number]="totalMedalsCount" />
     <app-informative-square class="flex-items" header="Total number of athletes" [number]="totalAthleteCount" />
   </div>
-  <app-line-chart></app-line-chart>
-
-  <button (click)="nav()">Return</button>
+  <div class="line-chart">
+    <app-line-chart></app-line-chart>
+  </div>
+  <div class=return-button>
+    <button (click)="nav()">Return</button>
+  </div>
 </div>
+  
