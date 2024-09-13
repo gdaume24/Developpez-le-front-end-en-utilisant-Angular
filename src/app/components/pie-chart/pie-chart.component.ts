@@ -68,4 +68,9 @@ export class PieChartComponent implements OnInit {
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
+
+  logModel(model: any) {
+    console.log("model =", model);
+    return null; // Cela empêche un rendu inutile dans le template
+  }
 }

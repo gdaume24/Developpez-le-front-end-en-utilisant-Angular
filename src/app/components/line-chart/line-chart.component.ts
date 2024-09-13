@@ -22,21 +22,6 @@ export class LineChartComponent implements OnInit {
   showLegend: boolean = true;
 
   constructor(private olympicService: OlympicService) {}
-  datas = [
-    {
-      "name": "Germany",
-      "series": [
-        {
-          "name": "2010",
-          "value": 7300000
-        },
-        {
-          "name": "2011",
-          "value": 8940000
-        }
-      ]
-    }
-  ]
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
