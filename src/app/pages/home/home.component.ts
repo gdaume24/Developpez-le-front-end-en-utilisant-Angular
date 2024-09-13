@@ -48,8 +48,6 @@ export class HomeComponent implements OnInit {
     this.numberOfCountries = Math.max(...this.countriesIdList);
     // Max liste 2
     this.numberOfJO = Math.max(...this.participationIdList);
-    console.log('numberofCountries =', this.numberOfCountries);
-    console.log('numberofJOs =', this.numberOfJO);
     };
 
     ngOnDestroy(): void {

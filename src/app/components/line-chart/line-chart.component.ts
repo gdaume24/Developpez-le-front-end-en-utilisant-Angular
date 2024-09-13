@@ -42,7 +42,6 @@ export class LineChartComponent implements OnInit {
               "value": participation.medalsCount,
             })),
           }];
-          console.log("lineData =",this.lineData)
         }
         return null; // Add a default return statement
       }

@@ -60,8 +60,8 @@ export class PieChartComponent implements OnInit {
     });
   }
 
-  onPieSliceSelect(event: any) {
-    const selectedId = event.extra.id;
+  onPieSliceSelect(event: formattedPieDatas) {
+    const selectedId = event.extra.id;  
     this.router.navigate(['/details', selectedId]);
   }
 
