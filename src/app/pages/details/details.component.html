@@ -1,18 +1,20 @@
 <div class="flexbox">
   <div class="title">
-    <app-graphic-title [title]="countryName" />
+    <app-graphic-title [title]="countryName"></app-graphic-title>
   </div>
 
   <div class="informatives-squares">
-    <app-informative-square class="flex-items" header="Number of entries" [number]="numberOfEntries" />
-    <app-informative-square class="flex-items" header="Total number Medals" [number]="totalMedalsCount" />
-    <app-informative-square class="flex-items" header="Total number of athletes" [number]="totalAthleteCount" />
+    <app-informative-square class="flex-items" header="Number of entries" [number]="numberOfEntries"></app-informative-square>
+    <app-informative-square class="flex-items" header="Total number Medals" [number]="totalMedalsCount"></app-informative-square>
+    <app-informative-square class="flex-items" header="Total number of athletes" [number]="totalAthleteCount"></app-informative-square>
   </div>
-  <div class="line-chart">
-    <app-line-chart></app-line-chart>
-  </div>
-  <div class=return-button>
-    <button (click)="nav()">Return</button>
+
+  <div class="chart-and-button-container">
+    <div class="line-chart">
+      <app-line-chart></app-line-chart>
+    </div>
+    <div class="return-button">
+      <button (click)="nav()">Return</button>
+    </div>
   </div>
 </div>
-  

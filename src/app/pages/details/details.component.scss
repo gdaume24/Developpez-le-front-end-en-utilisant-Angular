@@ -1,12 +1,12 @@
 .flexbox {
-  flex-direction: column;
   display: flex;
-  justify-content: flex-start;
+  flex-direction: column;
   align-items: center;
+  padding: 20px;
 }
 
 .title {
-  margin-top: 50px ;
+  margin-bottom: 20px;
 }
 
 app-graphic-title {
@@ -14,21 +14,41 @@ app-graphic-title {
 }
 
 .informatives-squares {
-  margin-top: 18px;
   display: flex;
   justify-content: space-between;
+  max-width: 800px;
+  margin-bottom: 30px;
 }
 
 .flex-items {
-  margin-left: 10px;
-  margin-right: 10px;
-  font-size: 16px;
+  flex: 1;
+  margin: 0 10px;
+}
+
+.chart-and-button-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Align items to the left */
+  width: 100%;
+  max-width: 800px;
 }
 
 .line-chart {
-  margin-top: 30px;
+  flex: 1;
 }
 
 .return-button {
-  margin-top: 70px;
+  margin-top: 40px;
+}
+
+
+@media (max-width: 650px) {
+  .informatives-squares {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .flex-items {
+    margin: 10px 0;
+  }
 }
