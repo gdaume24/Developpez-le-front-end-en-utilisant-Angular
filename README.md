@@ -4,14 +4,14 @@
 
 Prérequis : Avoir Git d'installé ainsi que Node js
 
-- Cloner ce répertoire Github à partir d'un terminal :  
+1. Cloner ce répertoire Github à partir d'un terminal :  
 ```git clone https://github.com/gdaume24/Developpez-le-front-end-en-utilisant-Angular.git```
-- Entrer dans le projet :  
+2. Entrer dans le projet :  
 ```cd Developpez-le-front-end-en-utilisant-Angular```
-- Installer les librairies  
+3. Installer les librairies  
 ```npm i```
-- Lancer le projet Angular en local  
+4. Lancer le projet Angular en local  
 ```ng serve```
-- Ouvrir le lien `http://localhost:4200/` dans le navigateur
+5. Ouvrir le lien `http://localhost:4200/` dans le navigateur
 
 Voilà, l'application est lancée
