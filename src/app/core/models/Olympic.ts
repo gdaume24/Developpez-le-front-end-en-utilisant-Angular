@@ -11,3 +11,5 @@ export interface participation {
   medalsCount: number;
   athleteCount: number;
 }
+
+
